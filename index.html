@@ -55,22 +55,33 @@
       font-size: 2rem;
       cursor: default;
       display: inline-block;
-      animation: bounce 2s infinite;
       user-select: none;
       position: relative;
       transition: filter 0.3s ease;
       width: 2.5rem;
       height: 2.5rem;
       object-fit: contain;
+  border-radius: 400%;
+  overflow: hidden;
+    }
+    @keyframes lightning-flash {
+  0%, 100% {
+    box-shadow: none;
+    filter: brightness(1);
+  }
+  50% {
+    box-shadow:
+      0 0 5px 2px #fff,
+      0 0 15px 5px #fffa,
+      0 0 25px 10px #fffa;
+    filter: brightness(1.5);
+  }
+}
 
-    }
-    .emoji-badge:hover {
-      filter: drop-shadow(0 0 8px rgba(255 255 255 / 0.7));
-    }
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
+.emoji-badge.lightning {
+  animation: lightning-flash 1.5s infinite;
+}
+
 
     /* Gépelős szöveg - fehér, félkövér, fehér villogó kurzor */
     #typing-text {
@@ -87,11 +98,6 @@
       border-right: 2px solid white;
       animation: blink-caret 0.75s step-end infinite;
     }
-    @keyframes blink-caret {
-      from, to { border-color: transparent; }
-      50% { border-color: white; }
-    }
-
     .links-container {
       display: flex;
       flex-direction: column;
@@ -311,8 +317,8 @@
   <h1 class="shiny-text mb-2">thsnd</h1>
 
   <div class="emoji-badges">
-    <img src="https://cdn.discordapp.com/emojis/1349815838848454676.webp?size=96" alt="developer" title="developer" class="emoji-badge" />
-    <img src="https://cdn.discordapp.com/emojis/1305640881071722646.webp?size=96&animated=true" alt="Verified" title="Verified" class="emoji-badge" />
+    <img src="https://cdn.discordapp.com/emojis/1349815838848454676.webp?size=96" alt="developer" title="developer" class="emoji-badge lightning" />
+    <img src="https://cdn.discordapp.com/emojis/1305640881071722646.webp?size=96&animated=true" alt="Verified" title="Verified" class="emoji-badge lightning" />
   </div>
 
   <!-- Discord embed container -->
@@ -348,11 +354,11 @@
  <div id="typing-text"></div>
 
   <div class="flex space-x-4 mt-6">
-    <a href="https://discord.gg/lazulas" target="_blank" title="Discord">
-      <img src="https://cdn.jsdelivr.net/npm/simple-icons/icons/discord.svg" alt="Discord" class="w-8 h-8 filter invert hover:scale-110 transition-transform" />
-    </a>
     <a href="https://youtube.com/@thsnd0912" target="_blank" title="YouTube">
       <img src="https://cdn.jsdelivr.net/npm/simple-icons/icons/youtube.svg" alt="YouTube" class="w-8 h-8 filter invert hover:scale-110 transition-transform" />
+    </a>
+    <a href="https://www.tiktok.com/@diordesigner1" target="_blank" title="Tiktok"> 
+      <img src="https://cdn.jsdelivr.net/npm/simple-icons/icons/tiktok.svg" alt="Discord" class="w-8 h-8 filter invert hover:scale-110 transition-transform" />
     </a>
     <a href="https://www.instagram.com/thsnd._/" target="_blank" title="Instagram">
       <img src="https://cdn.jsdelivr.net/npm/simple-icons/icons/instagram.svg" alt="Instagram" class="w-8 h-8 filter invert hover:scale-110 transition-transform" />
