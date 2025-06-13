@@ -253,7 +253,7 @@
 <script>
   async function fetchDiscordStatus() {
     try {
-      const res = await fetch('https://shiny-base-de36.kjrjs6g22v.workers.dev/');
+      const res = await fetch('https://shiny-base-de36.kjrjs6g22v.workers.dev/status?guildId=970918337469116527');
       if (!res.ok) throw new Error(`Hálózati hiba: ${res.status}`);
 
       const data = await res.json();
