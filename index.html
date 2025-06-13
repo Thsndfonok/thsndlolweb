@@ -248,30 +248,30 @@
     <img src="https://cdn.discordapp.com/emojis/1305640881071722646.webp?size=96&animated=true" alt="Verified" title="Verified" class="emoji-badge" />
   </div>
 
-  <div id="discord-status">
-  Betöltés...
-</div>
+  <div id="discord-status">Betöltés...</div>
 
 <script>
-  async function fetchDiscordStatus(guildId) {
+  async function fetchDiscordStatus() {
     try {
-      const res = await fetch(`http://213.181.206.12:9307/status?guildId=${guildId}`);
+      const res = await fetch('https://shiny-base-de36.kjrjs6g22v.workers.dev/');
+      if (!res.ok) throw new Error(`Hálózati hiba: ${res.status}`);
+
       const data = await res.json();
 
       const container = document.getElementById('discord-status');
       container.innerHTML = `
-        <strong>${data.guild || 'Lazulas #PÉNZ'}</strong><br>
+        <strong>${data.guild || 'Ismeretlen szerver'}</strong><br>
         Teljes taglétszám: ${data.total}<br>
         Online: ${data.online}<br>
         Offline: ${data.offline}
       `;
-    } catch (e) {
+    } catch (error) {
       document.getElementById('discord-status').innerText = 'Hiba történt a státusz lekérésekor.';
-      console.error(e);
+      console.error(error);
     }
   }
 
-  fetchDiscordStatus('970918337469116527');
+  fetchDiscordStatus();
 </script>
 
 
