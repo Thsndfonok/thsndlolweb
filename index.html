@@ -327,21 +327,22 @@
 <script>
   async function fetchDiscordStatus() {
     try {
-      const res = await fetch('https://shiny-base-de36.kjrjs6g22v.workers.dev/status?guildId=970918337469116527');
+      const res = await fetch('https://shiny-base-de36.kjrjs6g22v.workers.dev/status?guildId=1369585347306061836');
       if (!res.ok) throw new Error(`Hálózati hiba: ${res.status}`);
 
       const data = await res.json();
 
       const container = document.getElementById('discord-status');
-    container.innerHTML = `
-      <strong class="shiny-text">${data.guild || 'Ismeretlen szerver'}</strong>
-      <div class="status-line">Összes tag: ${data.total}</div>
-      <div class="status-line"><svg class="online-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/></svg> Online: ${data.online}</div>
-      <div class="status-line"><svg class="offline-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/></svg> Offline: ${data.offline}</div>
-      <div class="join-button">
-  <a href="https://discord.gg/lazulass" target="_blank">Join</a>
-</div>
-    `;
+container.innerHTML = `
+  <strong class="shiny-text">${data.guild || 'Ismeretlen szerver'}</strong>
+  <div class="status-line">Összes tag: ${data.total}</div>
+  <div class="status-line"><svg class="online-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/></svg> Online: ${data.online}</div>
+  <div class="status-line"><svg class="offline-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/></svg> Offline: ${data.offline}</div>
+  <div class="join-button">
+    <a href="https://discord.gg/lazulass" target="_blank">Join</a>
+  </div>
+`;
+
   } catch (error) {
     document.getElementById('discord-status').innerText = 'Hiba történt a státusz lekérésekor.';
     console.error(error);
