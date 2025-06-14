@@ -7,15 +7,6 @@
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
   <style>
-    /* ENTER képernyő */
-    #enter-screen {
-      transition: opacity 0.5s ease;
-    }
-    #enter-screen.hidden {
-      opacity: 0;
-      pointer-events: none;
-    }
-
     body, html {
       margin: 0;
       padding: 0;
@@ -70,23 +61,29 @@
       width: 2.5rem;
       height: 2.5rem;
       object-fit: contain;
-      border-radius: 400%;
-      overflow: hidden;
+  border-radius: 400%;
+  overflow: hidden;
     }
     @keyframes lightning-flash {
-      0%, 100% { box-shadow: none; filter: brightness(1); }
-      50% {
-        box-shadow:
-          0 0 5px 2px #fff,
-          0 0 15px 5px #fffa,
-          0 0 25px 10px #fffa;
-        filter: brightness(1.5);
-      }
-    }
-    .emoji-badge.lightning {
-      animation: lightning-flash 1.5s infinite;
-    }
+  0%, 100% {
+    box-shadow: none;
+    filter: brightness(1);
+  }
+  50% {
+    box-shadow:
+      0 0 5px 2px #fff,
+      0 0 15px 5px #fffa,
+      0 0 25px 10px #fffa;
+    filter: brightness(1.5);
+  }
+}
 
+.emoji-badge.lightning {
+  animation: lightning-flash 1.5s infinite;
+}
+
+
+    /* Gépelős szöveg - fehér, félkövér, fehér villogó kurzor */
     #typing-text {
       min-height: 1.5rem;
       color: white;
@@ -124,6 +121,7 @@
       margin-top: 1.5rem;
     }
 
+    /* Új audio control stílus */
     .audio-control {
       position: fixed;
       top: 1rem;
@@ -158,6 +156,7 @@
     .audio-control input[type="range"] {
       width: 100px;
       cursor: pointer;
+      -webkit-appearance: none;
       background: transparent;
     }
     .audio-control input[type="range"]::-webkit-slider-thumb {
@@ -166,6 +165,7 @@
       width: 15px;
       height: 15px;
       background: white;
+      cursor: pointer;
       border-radius: 50%;
       border: none;
       margin-top: -5px;
@@ -176,10 +176,12 @@
       background: white;
       border-radius: 2px;
     }
+    /* Firefox */
     .audio-control input[type="range"]::-moz-range-thumb {
       width: 15px;
       height: 15px;
       background: white;
+      cursor: pointer;
       border-radius: 50%;
       border: none;
       box-shadow: 0 0 4px rgba(255 255 255 / 0.8);
@@ -190,11 +192,17 @@
       border-radius: 2px;
     }
 
+    /* Csillogó, fényes animáció a névhez */
     .shiny-text {
       position: relative;
       font-weight: 700;
       font-size: 2rem;
-      background: linear-gradient(90deg, #fff 25%, #80e0ff 50%, #fff 75%);
+      background: linear-gradient(
+        90deg,
+        #fff 25%,
+        #80e0ff 50%,
+        #fff 75%
+      );
       background-size: 200% 100%;
       background-position: 200% center;
       -webkit-background-clip: text;
@@ -209,10 +217,15 @@
         0 0 80px #b0b0ff;
     }
     @keyframes shine {
-      0% { background-position: 200% center; }
-      100% { background-position: -200% center; }
+      0% {
+        background-position: 200% center;
+      }
+      100% {
+        background-position: -200% center;
+      }
     }
 
+    /* Discord embed stílus */
     #discord-status {
       margin: 1rem auto;
       max-width: 320px;
@@ -236,126 +249,124 @@
       font-weight: 700;
     }
     .status-line {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      margin-bottom: 0.3rem;
-      font-size: 1rem;
-      font-weight: 600;
-    }
+  display: flex;
+  align-items: center;
+  justify-content: center; /* ez középre teszi a tartalmat */
+  gap: 0.5rem;
+  margin-bottom: 0.3rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
     .join-button {
-      margin-top: 1rem;
-      text-align: center;
-    }
-    .join-button a {
-      display: inline-block;
-      background-color: white;
-      color: black;
-      font-weight: 600;
-      padding: 0.4rem 1rem;
-      border-radius: 8px;
-      text-decoration: none;
-      transition: background-color 0.3s ease, transform 0.2s ease;
-    }
-    .join-button a:hover {
-      background-color: #f3f3f3;
-      transform: scale(1.05);
-    }
+  margin-top: 1rem;
+  text-align: center;
+  }
+.join-button a {
+  display: inline-block;
+  background-color: white;
+  color: black;
+  font-weight: 600;
+  padding: 0.4rem 1rem;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.join-button a:hover {
+  background-color: #f3f3f3;
+  transform: scale(1.05);
+}
+
     .status-line svg {
       width: 14px;
       height: 14px;
       flex-shrink: 0;
     }
     .online-icon {
-      fill: #4ade80;
+      fill: #4ade80; /* Tailwind green-400 */
       filter: drop-shadow(0 0 3px #4ade80);
     }
     .offline-icon {
-      fill: #9ca3af;
+      fill: #9ca3af; /* Tailwind gray-400 */
       filter: drop-shadow(0 0 3px #9ca3af);
     }
+
   </style>
 </head>
 <body>
 
-<!-- ENTER képernyő -->
-<div id="enter-screen" class="fixed inset-0 bg-black flex items-center justify-center z-[9999]">
-  <span class="text-white text-2xl font-bold tracking-wide cursor-pointer animate-pulse">[ ENTER ]</span>
-</div>
+  <video autoplay muted loop playsinline class="bg-video">
+    <source src="videos/background.mp4?v=2" type="video/mp4" />
+    A böngésződ nem támogatja a videó lejátszást.
+  </video>
 
-<video autoplay muted loop playsinline class="bg-video">
-  <source src="videos/background.mp4?v=2" type="video/mp4" />
-</video>
+  <!-- Új audio control -->
+  <div class="audio-control" aria-label="Audio control panel">
+    <button id="playBtn" aria-label="Play/Pause">▶️</button>
+    <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1" aria-label="Volume control" />
+  </div>
 
-<div class="audio-control" aria-label="Audio control panel">
-  <button id="playBtn" aria-label="Play/Pause">▶️</button>
-  <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1" aria-label="Volume control" />
-</div>
+  <audio id="myAudio" loop>
+    <source src="audio/mysong.mp3?v=1" type="audio/mpeg" />
+    A böngésződ nem támogatja az audio lejátszást.
+  </audio>
 
-<audio id="myAudio" loop>
-  <source src="audio/mysong.mp3?v=1" type="audio/mpeg" />
-</audio>
+  <canvas id="bg"></canvas>
 
-<canvas id="bg"></canvas>
+  <img id="profileImg" src="profile.png" alt="profile" class="rounded-full w-24 h-24 mb-2 border-2 border-white" />
 
-<img id="profileImg" src="profile.png" alt="profile" class="rounded-full w-24 h-24 mb-2 border-2 border-white" />
+  <h1 class="shiny-text mb-2">thsnd</h1>
 
-<h1 class="shiny-text mb-2">thsnd</h1>
+  <div class="emoji-badges">
+    <img src="https://cdn.discordapp.com/emojis/1349815838848454676.webp?size=96" alt="developer" title="developer" class="emoji-badge lightning" />
+    <img src="https://cdn.discordapp.com/emojis/1305640881071722646.webp?size=96&animated=true" alt="Verified" title="Verified" class="emoji-badge lightning" />
+  </div>
 
-<div class="emoji-badges">
-  <img src="https://cdn.discordapp.com/emojis/1349815838848454676.webp?size=96" alt="developer" title="developer" class="emoji-badge lightning" />
-  <img src="https://cdn.discordapp.com/emojis/1305640881071722646.webp?size=96&animated=true" alt="Verified" title="Verified" class="emoji-badge lightning" />
-</div>
-
-<div id="discord-status">Betöltés...</div>
-
-<div id="typing-text"></div>
-
-<div class="flex space-x-4 mt-6">
-  <a href="https://youtube.com/@thsnd0912" target="_blank" title="YouTube">
-    <img src="https://cdn.jsdelivr.net/npm/simple-icons/icons/youtube.svg" alt="YouTube" class="w-8 h-8 filter invert hover:scale-110 transition-transform" />
-  </a>
-  <a href="https://www.tiktok.com/@diordesigner1" target="_blank" title="Tiktok"> 
-    <img src="https://cdn.jsdelivr.net/npm/simple-icons/icons/tiktok.svg" alt="Discord" class="w-8 h-8 filter invert hover:scale-110 transition-transform" />
-  </a>
-  <a href="https://www.instagram.com/thsnd._/" target="_blank" title="Instagram">
-    <img src="https://cdn.jsdelivr.net/npm/simple-icons/icons/instagram.svg" alt="Instagram" class="w-8 h-8 filter invert hover:scale-110 transition-transform" />
-  </a>
-</div>
+  <!-- Discord embed container -->
+  <div id="discord-status">Betöltés...</div>
 
 <script>
-  // ENTER screen
-  const enterScreen = document.getElementById("enter-screen");
-  const audio = document.getElementById("myAudio");
-  const playBtn = document.getElementById("playBtn");
-  const volumeSlider = document.getElementById("volumeSlider");
-  let isPlaying = false;
+  async function fetchDiscordStatus() {
+    try {
+      const res = await fetch('https://shiny-base-de36.kjrjs6g22v.workers.dev/status?guildId=970918337469116527');
+      if (!res.ok) throw new Error(`Hálózati hiba: ${res.status}`);
 
-  enterScreen.addEventListener("mousedown", (e) => {
-    if (e.button === 0) {
-      enterScreen.classList.add("hidden");
-      audio.play();
-      isPlaying = true;
-      playBtn.textContent = "⏸️";
-    }
-  });
+      const data = await res.json();
 
-  playBtn.addEventListener("click", () => {
-    if (isPlaying) {
-      audio.pause();
-      playBtn.textContent = "▶️";
-    } else {
-      audio.play();
-      playBtn.textContent = "⏸️";
-    }
-    isPlaying = !isPlaying;
-  });
+      const container = document.getElementById('discord-status');
+    container.innerHTML = `
+      <strong class="shiny-text">${data.guild || 'Ismeretlen szerver'}</strong>
+      <div class="status-line">Összes tag: ${data.total}</div>
+      <div class="status-line"><svg class="online-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/></svg> Online: ${data.online}</div>
+      <div class="status-line"><svg class="offline-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/></svg> Offline: ${data.offline}</div>
+      <div class="join-button">
+  <a href="https://discord.gg/lazulass" target="_blank">Join</a>
+</div>
+    `;
+  } catch (error) {
+    document.getElementById('discord-status').innerText = 'Hiba történt a státusz lekérésekor.';
+    console.error(error);
+  }
+}
 
-  volumeSlider.addEventListener("input", (e) => {
-    audio.volume = e.target.value;
-  });
+  fetchDiscordStatus();
+</script>
 
+ <div id="typing-text"></div>
+
+  <div class="flex space-x-4 mt-6">
+    <a href="https://youtube.com/@thsnd0912" target="_blank" title="YouTube">
+      <img src="https://cdn.jsdelivr.net/npm/simple-icons/icons/youtube.svg" alt="YouTube" class="w-8 h-8 filter invert hover:scale-110 transition-transform" />
+    </a>
+    <a href="https://www.tiktok.com/@diordesigner1" target="_blank" title="Tiktok"> 
+      <img src="https://cdn.jsdelivr.net/npm/simple-icons/icons/tiktok.svg" alt="Discord" class="w-8 h-8 filter invert hover:scale-110 transition-transform" />
+    </a>
+    <a href="https://www.instagram.com/thsnd._/" target="_blank" title="Instagram">
+      <img src="https://cdn.jsdelivr.net/npm/simple-icons/icons/instagram.svg" alt="Instagram" class="w-8 h-8 filter invert hover:scale-110 transition-transform" />
+    </a>
+  </div>
+
+<script>
+  // Background animation (canvas dots)
   const canvas = document.getElementById('bg');
   const ctx = canvas.getContext('2d');
   let width = canvas.width = window.innerWidth;
@@ -384,11 +395,43 @@
   }
   draw();
 
+  // Audio control
+  const audio = document.getElementById("myAudio");
+  const playBtn = document.getElementById("playBtn");
+  const volumeSlider = document.getElementById("volumeSlider");
+
+  let isPlaying = false;
+
+  // Automatikus lejátszás első kattintásra (mobil böngészők miatt)
+  window.addEventListener("click", () => {
+    if (!isPlaying) {
+      audio.play();
+      playBtn.textContent = "⏸️";
+      isPlaying = true;
+    }
+  }, { once: true });
+
+  playBtn.addEventListener("click", () => {
+    if (isPlaying) {
+      audio.pause();
+      playBtn.textContent = "▶️";
+    } else {
+      audio.play();
+      playBtn.textContent = "⏸️";
+    }
+    isPlaying = !isPlaying;
+  });
+
+  volumeSlider.addEventListener("input", (e) => {
+    audio.volume = e.target.value;
+  });
+
   window.addEventListener('resize', () => {
     width = canvas.width = window.innerWidth;
     height = canvas.height = window.innerHeight;
   });
 
+  // Typing animation
   const typingText = document.getElementById('typing-text');
   const message = "money is everything";
   let index = 0;
@@ -400,7 +443,7 @@
       index++;
       if (index === message.length) {
         deleting = true;
-        setTimeout(type, 1500);
+        setTimeout(type, 1500); // Pause at full text
         return;
       }
     } else {
@@ -408,36 +451,13 @@
       index--;
       if (index === 0) {
         deleting = false;
-        setTimeout(type, 500);
+        setTimeout(type, 500); // Pause at empty text
         return;
       }
     }
     setTimeout(type, deleting ? 70 : 120);
   }
   type();
-
-  async function fetchDiscordStatus() {
-    try {
-      const res = await fetch('https://shiny-base-de36.kjrjs6g22v.workers.dev/status?guildId=970918337469116527');
-      if (!res.ok) throw new Error(`Hálózati hiba: ${res.status}`);
-      const data = await res.json();
-      const container = document.getElementById('discord-status');
-      container.innerHTML = `
-        <strong class="shiny-text">${data.guild || 'Ismeretlen szerver'}</strong>
-        <div class="status-line">Összes tag: ${data.total}</div>
-        <div class="status-line"><svg class="online-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/></svg> Online: ${data.online}</div>
-        <div class="status-line"><svg class="offline-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/></svg> Offline: ${data.offline}</div>
-        <div class="join-button">
-          <a href="https://discord.gg/lazulass" target="_blank">Join</a>
-        </div>
-      `;
-    } catch (error) {
-      document.getElementById('discord-status').innerText = 'Hiba történt a státusz lekérésekor.';
-      console.error(error);
-    }
-  }
-
-  fetchDiscordStatus();
 </script>
 
 </body>
